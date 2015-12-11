@@ -9,6 +9,23 @@ before_action :set_person, :only => [ :show, :edit, :update, :destroy]
     @people = Person.page(params[:page]).per(10)
     Rails.logger.debug("person: #{@person.inspect}")
 
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml { render :xml => @people.to_xml }
+      format.json { render :json => @people.to_json }
+      format.atom { @feed_title = "Order list" } # index.atom.builder
+    end
+  end
+
+  def show
+    @page_title = @person.name
+
+      respond_to do |format|
+        format.html { @page_title = @person.name } # show.html.erb
+        format.xml # show.xml.builder
+        format.json { render :json => { id: @person.id, name: @person.name, item: @person.item, quantity: @person.quantity, price: @person.price, remark: @person.remark, created_time: @person.created_at }.to_json }
+        format.atom { @feed_title = "Order list" } # index.atom.builder
+      end
   end
 
   def new

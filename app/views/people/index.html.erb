@@ -9,6 +9,7 @@
     <td>單價</td>
     <td>備註</td>
     <td>功能</td>
+    <td>沒有必要八</td>
   </tr>
   <% @people.each do |p| %>
   <tr>
@@ -22,6 +23,11 @@
       
       <%= link_to "不訂了", person_path(p), :method => :delete, :data => { :confirm => "確定耶！?" }, :class => "btn btn-danger" %>
     </td>
+    <td>
+      <%= link_to "Get XML", person_path(p, :format => :xml), :class => "btn btn-default" %>
+      <%= link_to "Get JSON", person_path(p, :format => :json), :class => "btn btn-default" %>
+      <%= link_to "Get Atom", person_path(p, :format => :atom), :class => "btn btn-default" %>
+    </td>
   </tr>
   <% end %>
   <tr>
@@ -33,3 +39,7 @@
 
 
 <p><%= link_to "回去那該死的首頁", root_path %></p>
+
+<p><%= link_to "Atom feed", people_path(:format => :atom) %></p>
+<p><%= link_to "XML", people_path(:format => :xml) %></p>
+<p><%= link_to "Json", people_path(:format => :json) %></p>
