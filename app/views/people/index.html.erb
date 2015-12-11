@@ -1,4 +1,4 @@
-<h1>現在時刻: <%= Time.now %></h1>
+<h1>現在時刻: <%= Time.current %></h1>
 <h3>菜單要等等喔還在蓋</h3>
 
 <table class="table">
@@ -9,7 +9,7 @@
     <td>單價</td>
     <td>備註</td>
     <td>功能</td>
-    <td>沒有必要八</td>
+    <td>沒有必要的功能</td>
   </tr>
   <% @people.each do |p| %>
   <tr>
@@ -31,7 +31,7 @@
   </tr>
   <% end %>
   <tr>
-    <td><%= link_to "幹我也要訂", new_person_path %></td>
+    <td><%= link_to "幹我也要訂", new_person_path, :class => "btn btn-primary" %></td>
   </tr>
 </table>
 

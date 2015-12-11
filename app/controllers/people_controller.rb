@@ -6,7 +6,7 @@ before_action :set_person, :only => [ :show, :edit, :update, :destroy]
   def index
 
     @people = Person.all
-    @people = Person.page(params[:page]).per(10)
+    @people = Person.page(params[:page]).per(5)
     Rails.logger.debug("person: #{@person.inspect}")
 
     respond_to do |format|
