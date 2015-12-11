@@ -1,0 +1,5 @@
+<%= form_for @person do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <%= f.submit "決定囉", :class => "btn btn-primary" %>
+<% end %>   
+<p><%= link_to "算了不改了", people_path %></p>

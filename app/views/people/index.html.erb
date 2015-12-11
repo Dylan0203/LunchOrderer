@@ -1,0 +1,35 @@
+<h1>Hi all</h1>
+<p>菜單要等等喔還在蓋</p>
+
+<table class="table">
+  <tr>
+    <td>姓名</td>
+    <td>餐點</td>
+    <td>數量</td>
+    <td>單價</td>
+    <td>備註</td>
+    <td>功能</td>
+  </tr>
+  <% @people.each do |p| %>
+  <tr>
+    <td><%= p.name %></td>
+    <td><%= p.item %></td>
+    <td><%= p.quantity %></td>
+    <td><%= p.price %></td>
+    <td><%= p.remark %></td>
+    <td>
+      <%= link_to "改一下", edit_person_path(p), :class => "btn btn-default" %>
+      
+      <%= link_to "不訂了", person_path(p), :method => :delete, :data => { :confirm => "確定耶！?" }, :class => "btn btn-danger" %>
+    </td>
+  </tr>
+  <% end %>
+  <tr>
+    <td><%= link_to "幹我也要訂", new_person_path %></td>
+  </tr>
+</table>
+
+<p><%= paginate @people %></p>
+
+
+<p><%= link_to "回去那該死的首頁", root_path %></p>

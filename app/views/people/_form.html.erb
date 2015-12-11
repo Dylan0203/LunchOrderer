@@ -1,0 +1,35 @@
+  
+<div class="form_group">
+  <%= f.label :name, "姓名" %>
+  <%= f.text_field :name, :class => "form-control" %>
+</div>
+
+<div class="form_group">
+  <%= f.label :item, "訂啥" %>
+  <%= f.text_field :item, :class => "form-control" %>
+</div>
+
+<div class="form_group">
+  <%= f.label :quantity, "幾個？" %>
+  <%= f.text_field :quantity, :class => "form-control" %>
+</div>
+
+<div class="form_group">
+  <%= f.label :price, "多少錢？" %>
+  <%= f.text_field :price, :class => "form-control" %>
+</div>
+
+<div class="form_group">
+  <%= f.label :remark, "備註喔" %>
+  <%= f.text_area :remark, :class => "form-control" %>
+</div>
+
+
+
+<% if @person.errors.any? %>
+      <ul>
+      <% @person.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+<% end %>
