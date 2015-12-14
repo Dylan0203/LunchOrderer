@@ -38,7 +38,7 @@
 <p><%= paginate @people %><%= page_entries_info @people %></p>
 
 <%if params[:person_id] %>
-  <% url = person_path(@person, :page => params[:page])%>
+  <% url = person_path(@person, :page => params[:page], :person_id => @person.id)%>
 <% else %>
   <% url = people_path(:page => params[:page]) %>
 <% end %>
