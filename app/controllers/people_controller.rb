@@ -50,7 +50,7 @@ before_action :set_person, :only => [ :show, :edit, :update, :destroy]
 
   def update
     if @person.update(person_params)
-      redirect_to people_path
+      redirect_to people_path(:page => params[:page])
       flash[:notice] = "換來換去很機車喔"
     else
       render :action => :edit
