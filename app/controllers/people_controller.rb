@@ -23,7 +23,8 @@ before_action :set_person, :only => [ :show, :edit, :update, :destroy]
       respond_to do |format|
         format.html { @page_title = @person.name } # show.html.erb
         format.xml # show.xml.builder
-        format.json { render :json => { id: @person.id, name: @person.name, item: @person.item, quantity: @person.quantity, price: @person.price, remark: @person.remark, created_time: @person.created_at }.to_json }
+        format.json { render :json => @person.to_json }
+        #format.json { render :json => { id: @person.id, name: @person.name, item: @person.item, quantity: @person.quantity, price: @person.price, remark: @person.remark, created_time: @person.created_at }.to_json }
         format.atom { @feed_title = "Order list" } # index.atom.builder
       end
   end
@@ -62,7 +63,7 @@ before_action :set_person, :only => [ :show, :edit, :update, :destroy]
 
     flash[:alert] = "不訂就滾八"
 
-    redirect_to people_path
+    redirect_to people_path( :page => params[:page])
   end
 
   private
