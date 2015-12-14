@@ -1,4 +1,4 @@
-<h1>現在時刻: <%= Time.current %></h1>
+<h1 class="time">現在時刻: <%= Time.current %></h1>
 <h3>菜單要等等喔還在蓋</h3>
 
 <table class="table">
@@ -19,7 +19,7 @@
     <td><%= p.price %></td>
     <td><%= p.remark %></td>
     <td>
-      <%= link_to "改一下", edit_person_path(p), :class => "btn btn-default" %>
+      <%= link_to "改一下", people_path(:person_id => p, :page => params[:page]), :class => "btn btn-default" %>
       
       <%= link_to "不訂了", person_path(p, :page => params[:page]), :method => :delete, :data => { :confirm => "確定耶！?" }, :class => "btn btn-danger" %>
     </td>
@@ -31,11 +31,24 @@
   </tr>
   <% end %>
   <tr>
-    <td><%= link_to "幹我也要訂", new_person_path, :class => "btn btn-primary" %></td>
+    <!-- <td><%= link_to "幹我也要訂", new_person_path, :class => "btn btn-primary" %></td> -->
   </tr>
 </table>
 
 <p><%= paginate @people %><%= page_entries_info @people %></p>
+
+<%if params[:person_id] %>
+  <% url = person_path(@person, :page => params[:page])%>
+<% else %>
+  <% url = people_path(:page => params[:page]) %>
+<% end %>
+
+<%= form_for @person, :url => url do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <%= f.submit "決定囉", :class => "btn btn-primary" %>
+<% end %>
+
+
 
 <p><%= link_to "回去那該死的首頁", root_path %></p>
 

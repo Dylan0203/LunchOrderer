@@ -5,7 +5,13 @@ before_action :set_person, :only => [ :show, :edit, :update, :destroy]
 
   def index
 
-    @people = Person.all
+
+    if params[:person_id]
+      @person = Person.find(params[:person_id])
+    else 
+      @person = Person.new
+    end
+
     @people = Person.page(params[:page]).per(5)
     Rails.logger.debug("person: #{@person.inspect}")
 
@@ -18,19 +24,15 @@ before_action :set_person, :only => [ :show, :edit, :update, :destroy]
   end
 
   def show
-    @page_title = @person.name
+    @feed_title = @person.name
 
       respond_to do |format|
-        format.html { @page_title = @person.name } # show.html.erb
+        format.html { @feed_title = @person.name } # show.html.erb
         format.xml # show.xml.builder
         format.json { render :json => @person.to_json }
         #format.json { render :json => { id: @person.id, name: @person.name, item: @person.item, quantity: @person.quantity, price: @person.price, remark: @person.remark, created_time: @person.created_at }.to_json }
         format.atom { @feed_title = "Order list" } # index.atom.builder
       end
-  end
-
-  def new
-    @person = Person.new
   end
 
   def create
@@ -41,11 +43,9 @@ before_action :set_person, :only => [ :show, :edit, :update, :destroy]
       redirect_to people_path
       flash[:notice] = "知道了啦"
     else
-      render :action => :new
+      @people = Person.page(params[:page]).per(5)
+      render :index
     end
-  end
-
-  def edit
   end
 
   def update
@@ -53,7 +53,8 @@ before_action :set_person, :only => [ :show, :edit, :update, :destroy]
       redirect_to people_path(:page => params[:page])
       flash[:notice] = "換來換去很機車喔"
     else
-      render :action => :edit
+      @people = Person.page(params[:page]).per(5) 
+      render :index
     end
   end
 
@@ -63,7 +64,7 @@ before_action :set_person, :only => [ :show, :edit, :update, :destroy]
 
     flash[:alert] = "不訂就滾八"
 
-    redirect_to people_path( :page => params[:page])
+    redirect_to people_path(:page => params[:page])
   end
 
   private
