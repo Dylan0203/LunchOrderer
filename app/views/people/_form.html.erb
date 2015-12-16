@@ -22,8 +22,17 @@
 <div class="form_group">
   <%= f.label :remark, "備註喔" %>
   <%= f.text_area :remark, :class => "form-control" %>
+</div
+
+<div class="form_group">
+  <%= f.label :date, "日期" %>
+  <%= f.date_select :date, :class => "form-control" %>
 </div>
 
+<div class="form_group">
+  <%= f.label :datetime, "日期時間" %>
+  <%= f.datetime_select :datetime, :class => "form-control" %>
+</div>
 
 
 <% if @person.errors.any? %>
