@@ -14,7 +14,7 @@ before_action :set_page_num
       @person = Person.new
     end
 
-    @people = Person.page(params[:page]).per(5)
+    @people = Person.page(params[:page]).per(@page_num)
     Rails.logger.debug("person: #{@person.inspect}")
 
     respond_to do |format|
@@ -45,7 +45,7 @@ before_action :set_page_num
       redirect_to people_path(:page => params[:page])
       flash[:notice] = "知道了啦"
     else
-      @people = Person.page(params[:page]).per(5)
+      @people = Person.page(params[:page]).per(@page_num)
       render :index
     end
   end
@@ -55,7 +55,7 @@ before_action :set_page_num
       redirect_to people_path(:page => params[:page])
       flash[:notice] = "換來換去很機車喔"
     else
-      @people = Person.page(params[:page]).per(5) 
+      @people = Person.page(params[:page]).per(@page_num) 
       render :index
     end
   end
