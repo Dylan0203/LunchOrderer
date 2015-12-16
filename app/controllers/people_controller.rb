@@ -2,6 +2,8 @@ class PeopleController < ApplicationController
 
 
 before_action :set_person, :only => [ :show, :edit, :update, :destroy]
+before_action :set_page_num
+
 
   def index
 
@@ -39,8 +41,8 @@ before_action :set_person, :only => [ :show, :edit, :update, :destroy]
     @person = Person.new(person_params)
 
     if @person.save
-
-      redirect_to people_path
+      params[:page] = Person.count / @page_num + 1 if Person.count > @page_num && Person.count % @page_num != 0
+      redirect_to people_path(:page => params[:page])
       flash[:notice] = "知道了啦"
     else
       @people = Person.page(params[:page]).per(5)
@@ -60,17 +62,25 @@ before_action :set_person, :only => [ :show, :edit, :update, :destroy]
 
   def destroy
 
-    @person.destroy
-
     flash[:alert] = "不訂就滾八"
 
-    redirect_to people_path(:page => params[:page])
+
+    if Person.count % @page_num == 1 && @person == Person.last
+      params[:page] = params[:page].to_i - 1
+    end
+    @person.destroy
+      redirect_to people_path(:page => params[:page])
+    
   end
 
   private
 
   def set_person
     @person = Person.find(params[:id])
+  end
+
+  def set_page_num
+    @page_num = 5
   end
 
   def person_params
