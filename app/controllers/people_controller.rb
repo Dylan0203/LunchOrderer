@@ -84,7 +84,7 @@ before_action :set_page_num
   end
 
   def person_params
-    params.require(:person).permit(:name, :item, :quantity, :price, :remark)
+    params.require(:person).permit(:name, :item, :quantity, :price, :remark, :date, :datetime)
   end
 
 end
