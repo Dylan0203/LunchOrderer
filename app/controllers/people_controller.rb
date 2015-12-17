@@ -7,7 +7,6 @@ before_action :set_page_num
 
   def index
 
-
     if params[:person_id]
       @person = Person.find(params[:person_id])
     else 
@@ -16,6 +15,7 @@ before_action :set_page_num
 
     @people = Person.page(params[:page]).per(@page_num)
     Rails.logger.debug("person: #{@person.inspect}")
+
 
     respond_to do |format|
       format.html # index.html.erb
@@ -46,7 +46,7 @@ before_action :set_page_num
       flash[:notice] = "知道了啦"
     else
       @people = Person.page(params[:page]).per(@page_num)
-      render :index
+      render :index   
     end
   end
 
@@ -56,7 +56,7 @@ before_action :set_page_num
       flash[:notice] = "換來換去很機車喔"
     else
       @people = Person.page(params[:page]).per(@page_num) 
-      render :index
+      render :index 
     end
   end
 
@@ -80,7 +80,7 @@ before_action :set_page_num
   end
 
   def set_page_num
-    @page_num = 5
+     @page_num = 5
   end
 
   def person_params
